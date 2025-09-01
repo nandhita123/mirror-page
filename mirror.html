@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror Page</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1); /* flips video to look like a mirror */
+    }
+  </style>
+</head>
+<body>
+  <video id="mirror" autoplay playsinline></video>
+
+  <script>
+    async function startMirror() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "user" }, // use front camera
+          audio: false
+        });
+        document.getElementById("mirror").srcObject = stream;
+      } catch (err) {
+        alert("Unable to access camera: " + err.message);
+      }
+    }
+    startMirror();
+  </script>
+</body>
+</html>
